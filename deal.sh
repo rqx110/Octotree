@@ -9,7 +9,7 @@ rm content.js.bak
 sed -i '/differential_fingerprint/d' manifest.json
 sed -i '/key/d' manifest.json
 sed -i 's/"version":\s\{1,\}"\(.*\)"/"version": "99.\1"/' manifest.json
-sed -i 's/"update_url":\s\{1,\}"\(.*\)"/"update_url": "https:\/\/raw.githubusercontent.com\/tofuliang\/octotree\/master\/update.xml"/' manifest.json
+sed -i 's/"update_url":\s\{1,\}"\(.*\)"/"update_url": "https:\/\/raw.githubusercontent.com\/rqx110\/octotree\/master\/update.xml"/' manifest.json
 cd ..
 
 ver=$2
