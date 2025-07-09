@@ -30,11 +30,19 @@ jobs:
             (cd new;unzip a.zip||true;rm -fr a.zip)
             echo UPGRAED=$(./deal.sh new $remoteVersion) >> $GITHUB_ENV
           fi
+      - name: npm install, build
+        if: env.UPGRAED == '1'
+        env:
+          PRIVATE_KEY: ${{ secrets.buildPem }}
+        run: |
+          npm install crx3
+          cat <<< $PRIVATE_KEY > ../build.pem
+          npx crx3 -p ../build.pem -o Octotree.crx -x update.xml --crxURL https://raw.githubusercontent.com/rqx110/Octotree/master/Octotree.crx src
       - name: Set git identity
         if: env.UPGRAED == '1'
         run: |
           git config --global user.email "rqx110@163.com"
           git config --global user.name "rqx110"
-          git add update.xml src
+          git add Octotree.crx update.xml src
           git commit -m "update crx to ${NEW_VERSION}"
           git push
